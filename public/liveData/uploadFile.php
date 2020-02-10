@@ -18,7 +18,7 @@ if (isset($_POST["rgid"]) && isset($_FILES['file']) && $_FILES['file']['size'] !
         $allowed = false;
     }
     // Check file size
-    if ($_FILES["file"]["size"] > 500000) {
+    if ($_FILES["file"]["size"] > 1000000) {
         $msg =  "Filen är för stor!";
         $allowed = false;
     }

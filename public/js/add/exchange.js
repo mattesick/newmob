@@ -7,6 +7,10 @@ $("#exchange").click(() => {
     $(".move-to h2").html("Flytt FRÅN:");
     moveto.addClass("move-from").removeClass("move-to");
     movefrom.addClass("move-to").removeClass("move-from")
+    let listMoveto = $(".address-list-move-to")
+    let listMovefrom = $(".address-list-move-from")
+    listMoveto.addClass("address-list-move-from").removeClass("address-list-move-to");
+    listMovefrom.addClass("address-list-move-to").removeClass("address-list-move-from");
     moveFrom = $(".move-from input");
     moveTo = $(".move-to input");
     let from = $(".insertAftermove-from");

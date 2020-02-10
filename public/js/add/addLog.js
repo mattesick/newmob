@@ -9,11 +9,7 @@ function postLog(string, rid) {
     let day = time.getDate() < 10 ? "0" + time.getDate() : time.getDate();
     let timeString = "<b>" + hours + ":" + minutes + ", " + day + "/" + month + " " + time.getFullYear() + "</b>";
     string = timeString + " - " + $("#hiddenName").val() + " " + string;
-    if (rid) {
-        $.post("/liveData/addLog.php", { string, rid });
-    } else {
-        saveLog.push({ string, rid });
-    }
+    saveLog.push({ string, rid });
     $("#all-logs").prepend("<span style=display:block>" + string + "</span>");
 }
 $.urlParam = function(name) {

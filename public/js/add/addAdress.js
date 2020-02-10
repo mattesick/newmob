@@ -11,7 +11,7 @@ function newAdress(e, parentClass) {
 
     let insertAfter = ".insertAfter" + parentClass;
     let id = generateId();
-    let map_id = "adress"+id;
+    let map_id = "adress" + id;
     $("." + parentClass + " .add-adress").parent("a").remove();
     $(`          
         <div class="custom-select new-custom-select">
@@ -67,13 +67,14 @@ function newAdress(e, parentClass) {
     </div>
         `).insertAfter(insertAfter);
     google.maps.event.addDomListener(window, 'load', initialize(map_id));
-    
+
     var x, i, j, selElmnt, a, b, c;
     /*look for any elements with the class "custom-select":*/
     x = document.getElementsByClassName("new-custom-select")[document.getElementsByClassName("new-custom-select").length - 1];
 
     $("." + parentClass + " .new-custom-select select").append($($("#boende-example select").html()));
     $(".new-custom-select").removeClass("new-custom-select");
+    if (!x) return;
     selElmnt = x.getElementsByTagName("select")[0];
     $($(insertAfter)[0]).removeClass("insertAfter" + parentClass);
     /*for each element, create a new DIV that will act as the selected item:*/

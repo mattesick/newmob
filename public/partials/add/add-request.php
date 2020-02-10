@@ -14,21 +14,31 @@ function showDropdownItems($title)
         }
     }
 }
+$users = $GLOBALS["engine"]->provider->fetchResultSet("SELECT * FROM user")->stmt->fetchAll();
 function showInput($type, $name, $placeholder, $id = "", $label = true, $data = false, $readonly = false)
 {
-
+    global $users;
     if (isset($id) || $id == "") {
         $id = $GLOBALS["engine"]->makeId();
     }
     if ($label && $data && !$readonly) {
         $options = ``;
-        $users = $GLOBALS["engine"]->provider->fetchResultSet('SELECT id FROM user');
-        if ($users->rowCount() !== 0) {
-            while ($users->next()) {
-                $userId = $users->row["id"];
-                $userName = $GLOBALS["engine"]->getName($userId);
-                $options .= "<option value='$userName - $userId'>";
+
+        foreach ($users as $key => $user ){
+            $userId = $user["id"];
+             if($name == "email" && isset($user["email"])){
+                $info = $user["email"];
+            } else if($name == "phone" && isset($user["phone"])){
+                $info = $user["phone"];
+            } else if($name == "org" && isset($user["personalcode"])){
+                $info = $user["personalcode"];
+            } else{
+                $info = $user["firstname"] . " " . $user["lastname"];
             }
+        
+
+            $options .= "<option value='$info - $userId'>";
+
         }
         echo "
         <div>
@@ -107,10 +117,10 @@ function showInput($type, $name, $placeholder, $id = "", $label = true, $data = 
         <div class="customer-info">
             <?php
             showInput("text", "name", "Företagsnamn/Förnamn...", "", true, true);
-            showInput("text", "lname", "Efternamn...");
-            showInput("tel", "phone", "Tel...");
-            showInput("email", "email", "Epost...");
-            showInput("text", "org", "Org./Personnummer...");
+            showInput("text", "lname", "Efternamn...", "", true, true);
+            showInput("tel", "phone", "Tel...", "", true, true);
+            showInput("email", "email", "Epost...", "", true, true);
+            showInput("text", "org", "Org./Personnummer...", "", true, true);
             ?>
 
             <div class="add-person-button">
@@ -267,8 +277,6 @@ function showInput($type, $name, $placeholder, $id = "", $label = true, $data = 
         </div>
     </form>
 </div>
-<div id="map" style="height: 500px;width: 100%;border:1px #000 solid"></div>
-<div id="directions-panel" style="background-color: white;padding: 10px;margin-bottom: 20px;">
 
 </div>
 

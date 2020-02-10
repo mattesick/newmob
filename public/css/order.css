@@ -18,6 +18,7 @@ main {
     position: -webkit-sticky;
     position: sticky;
     top: 0;
+    z-index: 2;
 }
 
 #button-navigation button,
@@ -147,12 +148,12 @@ td {
     background-color: #F6D559;
 }
 
-tr td:nth-child(1) {
+tr td:nth-child(1) a {
     color: var(--purple);
     transition: var(--transition);
     cursor: pointer;
 }
 
-tr td:nth-child(1):hover {
+tr td:nth-child(1) a:hover {
     color: var(--yellow);
 }

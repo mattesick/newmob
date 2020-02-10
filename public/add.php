@@ -47,23 +47,23 @@ include "rights/auth.php"; ?>
 			</div>
 			<div class="inputs">
 				<div>
-					<input type="text" placeholder=" " name="badress" id="ex">
+					<input type="text" placeholder=" " name="badrfess" id="ex">
 					<label for="ex">Faktueringsadress...</label>
 				</div>
 				<div>
-					<input type="text" placeholder=" " name="badress" id="ex">
+					<input type="text" placeholder=" " name="badsress" id="ex">
 					<label for="ex">Faktueringsadress...</label>
 				</div>
 				<div>
-					<input type="text" placeholder=" " name="badress" id="ex">
+					<input type="text" placeholder=" " name="badraess" id="ex">
 					<label for="ex">Faktueringsadress...</label>
 				</div>
 				<div>
-					<input type="text" placeholder=" " name="badress" id="ex">
+					<input type="text" placeholder=" " name="badregss" id="ex">
 					<label for="ex">asd...</label>
 				</div>
 				<div>
-					<input type="text" placeholder=" " name="badress" id="ex">
+					<input type="text" placeholder=" " name="badraess" id="ex">
 					<label for="ex">asd...</label>
 				</div>
 			</div>
@@ -72,9 +72,12 @@ include "rights/auth.php"; ?>
 		include "partials/add/rut-calc.php";
 		include "partials/add/add-log-and-files.php";
 		?>
+	<div id="map" style="height: 500px;width: 100%;border:1px #000 solid"></div>
+<div id="directions-panel" style="background-color: white;padding: 0;margin-bottom: 20px;">
 
 
 	</main>
+	<div class="loading"><i class="fad fa-circle-notch fa-5x"></i><div>
 	<?php if (!isset($_GET["oid"]) || !$engine->getRequestId($_GET["oid"])) : ?>
 	<script>
 		let id = "";
@@ -87,83 +90,29 @@ include "rights/auth.php"; ?>
 <?php endif ?>
 <script src="js/select.js"></script>
 <script src="js/add/addLog.js"></script>
-<?php
-if (isset($_GET["oid"]) && $engine->getRequestId($_GET["oid"])) {
-	require_once 'liveData/requestInfo.php';
-}
-if (isset($_GET["oid"]) && $engine->getRequestId($_GET["oid"]) && $engine->getRole($_SESSION["uid"]) !== "Admin") : ?>
-	<script>
-		$("main input").attr("readonly", true).css("background", "rgb(230,230,230)");
-		$('main button').prop('disabled', true).css("background", "rgb(230,230,230)");
-		$(".copy").prop("disabled", false).css("background", "");
-		$('main input[type=submit]').prop('disabled', true).css("background", "rgb(230,230,230)");
-		$("main input[type=checkbox]").prop("disabled", true).css("background", "rgb(230,230,230)");
-		$(".custom-select").css("background", "rgb(230,230,230)");
-		$("main textarea").attr("readonly", true).css("background", "rgb(230, 230, 230)");
-		$("main i").off();
-		$("main p").off();
-		$(".edit-add").click(function() {
-			$("main input").attr("readonly", false).css("background", "");
-			$('main button').prop('disabled', false).css("background", "");
-			$('main input[type=submit]').prop('disabled', false).css("background", "");
-			$("main input[type=checkbox]").prop("disabled", false);
-			$("main textarea").attr("readonly", false).css("background", "");
-			$.getScript("js/add/article.js");
-			$.getScript("js/add/sameAsBillingAdress.js");
-			$.getScript("js/add/exchange.js");
-			$.getScript("js/add/addName.js");
-			$.getScript("js/add/post.js");
-			$.getScript("js/add/addAdress.js");
-			$.getScript("js/add/uploadFile.js");
-			$(this).remove();
-		})
-	</script>
-	<?php else : ?>
-		<script src="js/add/article.js"></script>
-		<script src="js/add/sameAsBillingAdress.js"></script>
-		<script src="js/add/exchange.js"></script>
-		<script src="js/add/addAdress.js"></script>
-		<script src="js/add/addName.js"></script>
-		<script src="js/add/post.js"></script>
-		<script src="js/add/uploadFile.js"></script>
-	<?php endif ?>
-	
-
-	<div class="alerts"></div>
-	<div class="modal fade" id="modal" role="dialog">
-		<div class="modal-dialog modal-sm custom-modal">
-			<div class="modal-content">
-				<form class="addNew">
-				</form>
-			</div>
-		</div>
-	</div>
-</body>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD6yfh06jGBv77PZPSS9OEQVZb2XeqNXjI&libraries=places"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD6yfh06jGBv77PZPSS9OEQVZb2XeqNXjI&libraries=places&language=sv&region=SE"></script>
 <script>
-	function initialize(map_id = "") {
-		var input = document.getElementById(map_id);
-		var autocomplete = new google.maps.places.Autocomplete(input);
-		google.maps.event.addListener(autocomplete, 'place_changed', function () {
-			var place = autocomplete.getPlace();
+	function forceCalcRoute(){
 
-			var directionsService = new google.maps.DirectionsService;
+		var directionsService = new google.maps.DirectionsService;
 			var directionsRenderer = new google.maps.DirectionsRenderer;
 			var map = new google.maps.Map(document.getElementById('map'), {
-				zoom: 6,
-				center: {lat: 41.85, lng: -87.65}
+				zoom: 8,
+				center: {lat: 55.60, lng: 13.00}
 			});
 			directionsRenderer.setMap(map);
 
 			var waypoint = [];
 			$(".address-list-move-from").each(function(){
 				if(($.trim($(this).val()).length>0)){
-					waypoint.push($(this).val());
+					let point = $($(`input[name=citymove-from]`)).length > 0 ? $(this).val() + ", " + ($(`input[name=citymove-from]`)).val() : $(this).val();
+					waypoint.push(point);
 				}
 			});
 			$(".address-list-move-to").each(function(){
 				if(($.trim($(this).val()).length>0)){
-					waypoint.push($(this).val());
+					let point = $($(`input[name=citymove-to]`)).length > 0 ? $(this).val() + ", " + ($(`input[name=citymove-to]`)).val() : $(this).val();
+					waypoint.push(point);
 				}
 			});
 			if (waypoint.length > 0) {
@@ -174,12 +123,74 @@ if (isset($_GET["oid"]) && $engine->getRequestId($_GET["oid"]) && $engine->getRo
 					calculateAndDisplayRoute(directionsService, directionsRenderer,origin,destination,waypoint);
 				}
 			}
-			// console.log(place);
-			// document.getElementById('city2').value = place.name;
-			// document.getElementById('cityLat').value = place.geometry.location.lat();
-			// document.getElementById('cityLng').value = place.geometry.location.lng();
+	}
+	function initialize(map_id = "") {
+		var input = document.getElementById(map_id);
+		if(!input) return;
+		var autocomplete = new google.maps.places.Autocomplete(input);
+		
+		google.maps.event.addListener(autocomplete, 'place_changed', function () {
+			var place = autocomplete.getPlace();
+			let state = $(input).parent().parent().parent().attr("class");
+			let i = 0;
+			for(;i < $(`input[name=adress${state}]`).length; i++){
+				if(input == $(`input[name=adress${state}]`)[i]){break;};
+			}
+			console.log(place, i)
+			let number = false;
+			for(let j = 0; j < place.address_components.length; j++){
+				
+				if(place.address_components[j].types[0] == "postal_code"){
+					$($(`input[name=zipcode${state}]`)[i]).val(place.address_components[j].long_name);
+				} else if(place.address_components[j].types[0] == "postal_town"){
+					$($(`input[name=city${state}]`)[i]).val(place.address_components[j].long_name)
+				} else if(place.address_components[j].types[0] == "country"){
+					let val = $($(`input[name=city${state}]`)[i]).val().length > 0 ? $($(`input[name=city${state}]`)[i]).val() + ", " + place.address_components[j].long_name : place.address_components[j].long_name;
+					$($(`input[name=city${state}]`)[i]).val(val);
+				} else if(place.address_components[j].types[0] == "route"){
+					if(!number) $(`input[name=adress${state}]`).val("");
+					$($(`input[name=adress${state}]`)[i]).val(place.address_components[j].long_name + " " + $($(`input[name=adress${state}]`)[i]).val());
+				} else if(place.address_components[j].types[0] == "street_number"){
+					number = true;
+					$(`input[name=adress${state}]`).val("");
+					$($(`input[name=adress${state}]`)[i]).val(place.address_components[j].long_name);
+				}
+			}
+			
+			var directionsService = new google.maps.DirectionsService;
+			var directionsRenderer = new google.maps.DirectionsRenderer;
+			var map = new google.maps.Map(document.getElementById('map'), {
+				zoom: 8,
+				center: {lat: 55.99, lng: 13.44}
+			});
+			directionsRenderer.setMap(map);
+
+			var waypoint = [];
+			$(".address-list-move-from").each(function(index){
+				if(($.trim($(this).val()).length>0)){
+					let point = $($(`input[name=citymove-from]`)).length > 0 ? $(this).val() + ", " + ($(`input[name=citymove-from]`)).val() : $(this).val();
+					waypoint.push(point);
+				}
+			});
+			$(".address-list-move-to").each(function(){
+				if(($.trim($(this).val()).length>0)){
+					let point = $($(`input[name=citymove-to]`)).length > 0 ? $(this).val() + ", " + ($(`input[name=citymove-to]`)).val() : $(this).val();
+					waypoint.push(point);
+				}
+			});
+			if (waypoint.length > 0) {
+				var origin = waypoint[0];
+				var destination = waypoint.pop();
+				waypoint.splice(0,1)
+				if (origin != "" && destination != "") {
+					calculateAndDisplayRoute(directionsService, directionsRenderer,origin,destination,waypoint);
+				}
+			}
+
+		
 		});
 		initMap();
+		
 	}
 	google.maps.event.addDomListener(window, 'load', initialize('txtfromautocomplete'));
 	google.maps.event.addDomListener(window, 'load', initialize('txttoautocomplete'));
@@ -191,24 +202,27 @@ if (isset($_GET["oid"]) && $engine->getRequestId($_GET["oid"]) && $engine->getRo
 		
 		google.maps.event.addListener(autocomplete,'click', function () {
 			var place = autocomplete.getPlace();
+			
 
 			var directionsService = new google.maps.DirectionsService;
 			var directionsRenderer = new google.maps.DirectionsRenderer;
 			var map = new google.maps.Map(document.getElementById('map'), {
-				zoom: 6,
-				center: {lat: 41.85, lng: -87.65}
+				zoom: 8,
+				center: {lat: 55.99, lng: 13.44}
 			});
 			directionsRenderer.setMap(map);
 
 			var waypoint = [];
 			$(".address-list-move-from").each(function(){
 				if(($.trim($(this).val()).length>0)){
-					waypoint.push($(this).val());
+					let point = $($(`input[name=citymove-from]`)).length > 0 ? $(this).val() + ", " + ($(`input[name=citymove-from]`)).val() : $(this).val();
+					waypoint.push(point);
 				}
 			});
 			$(".address-list-move-to").each(function(){
 				if(($.trim($(this).val()).length>0)){
-					waypoint.push($(this).val());
+					let point = $($(`input[name=citymove-to]`)).length > 0 ? $(this).val() + ", " + ($(`input[name=citymove-to]`)).val() : $(this).val();
+					waypoint.push(point);
 				}
 			});
 			if (waypoint.length > 0) {
@@ -227,11 +241,11 @@ if (isset($_GET["oid"]) && $engine->getRequestId($_GET["oid"]) && $engine->getRo
 		var directionsService = new google.maps.DirectionsService;
 		var directionsRenderer = new google.maps.DirectionsRenderer;
 		var map = new google.maps.Map(document.getElementById('map'), {
-			zoom: 6,
-			center: {lat: 41.85, lng: -87.65}
+			zoom: 8,
+			center: {lat: 55.99, lng: 13.44}
 		});
 		directionsRenderer.setMap(map);
-
+		forceCalcRoute();
 		/**/
 	}
 
@@ -288,9 +302,70 @@ if (isset($_GET["oid"]) && $engine->getRequestId($_GET["oid"]) && $engine->getRo
 		            }
 		        });
 			} else {
-				window.alert('Directions request failed due to ' + status);
+				console.log(status)
 			}
 		});
 	} 
 </script>
+<?php
+
+if (isset($_GET["oid"]) && $engine->getRequestId($_GET["oid"]) && $engine->getRole($_SESSION["uid"]) !== "Admin") : ?>
+	<script>
+		$("main input").attr("readonly", true).css("background", "rgb(230,230,230)");
+		$('main button').prop('disabled', true).css("background", "rgb(230,230,230)");
+		$(".copy").prop("disabled", false).css("background", "");
+		$('main input[type=submit]').prop('disabled', true).css("background", "rgb(230,230,230)");
+		$("main input[type=checkbox]").prop("disabled", true).css("background", "rgb(230,230,230)");
+		$(".custom-select").css("background", "rgb(230,230,230)");
+		$("main textarea").attr("readonly", true).css("background", "rgb(230, 230, 230)");
+		$("main i").off();
+		$("main p").off();
+		$(".edit-add").click(function() {
+			$("main input").attr("readonly", false).css("background", "");
+			$('main button').prop('disabled', false).css("background", "");
+			$('main input[type=submit]').prop('disabled', false).css("background", "");
+			$("main input[type=checkbox]").prop("disabled", false);
+			$("main textarea").attr("readonly", false).css("background", "");
+			$.getScript("js/add/article.js");
+			$.getScript("js/add/sameAsBillingAdress.js");
+			$.getScript("js/add/exchange.js");
+			$.getScript("js/add/addName.js");
+			$.getScript("js/add/post.js");
+			$.getScript("js/add/addAdress.js");
+			$.getScript("js/add/uploadFile.js");
+			$(this).remove();
+		})
+	</script>
+	<?php else : ?>
+		<script src="js/add/article.js"></script>
+		<script src="js/add/sameAsBillingAdress.js"></script>
+		<script src="js/add/exchange.js"></script>
+		<script src="js/add/addAdress.js"></script>
+		<script src="js/add/addName.js"></script>
+		<script src="js/add/post.js"></script>
+		<script src="js/add/uploadFile.js"></script>
+		<script>
+		$(".loading").show();
+		$(document).ready(() =>{
+			$(".loading").hide();
+		})
+		</script>
+	<?php endif ;
+	
+	if (isset($_GET["oid"]) && $engine->getRequestId($_GET["oid"])) {
+		require_once 'liveData/requestInfo.php';
+	}?>
+	
+
+	<div class="alerts"></div>
+	<div class="modal fade" id="modal" role="dialog">
+		<div class="modal-dialog modal-sm custom-modal">
+			<div class="modal-content">
+				<form class="addNew">
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+
 </html>

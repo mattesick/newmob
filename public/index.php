@@ -55,7 +55,8 @@ include_once "rights/auth.php"; ?>
                     right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
                 },
                 events: events,
-                themeSystem: "bootstrap4",
+                theme: "bootstrap4",
+                defaultView: "timeGridWeek",
                 locale: initialLocaleCode,
                 buttonIcons: true, // show the prev/next text
                 weekNumbers: true,
@@ -63,10 +64,8 @@ include_once "rights/auth.php"; ?>
                 eventStartEditable: true,
 
                 eventLimit: true, // allow "more" link when too many events
-                eventRender: function(info) {
-                    console.log(info)
-                   // $(info.el).css("background", "red")
-
+                dayRender: function(){
+                    console.log(this)
                 },
 
 
@@ -218,6 +217,8 @@ include_once "rights/auth.php"; ?>
             </div>
         </div>
     </div>
+    <div class="loading"><i class="fad fa-circle-notch fa-5x"></i>
+        <div>
 </body>
 
 </html>

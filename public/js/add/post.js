@@ -1,17 +1,49 @@
-
-$(".rut-buttons button").click(function() {
+$(".rut-buttons button").click(async function() {
+    $(".loading").show();
     let action = $(this).attr("id");
     let internalNotes = $("#internalNotes").val();
     let generatedId = $("body").attr("id");
     $(`<input type=hidden value=${action} name='action' >`).appendTo("form[name=request]");
     $(`<input type=hidden value='${internalNotes}' name='internalNotes'>`).appendTo("form[name=request]");
     $(`<input type=hidden value='${generatedId}' name='generatedId'>`).appendTo("form[name=request]");
+    for (let i = 0; i < $("input[name=name]").length; i++) {
+        let id = $($("input[name=name]")[i]).parent().attr("id") ? $($("input[name=name]")[i]).parent().attr("id") : 0;
+        if (id == 0) {
+            let user = {
+                firstname: $($("input[name=name]")[i]).val(),
+                lastname: $($("input[name=lname]")[i]).val(),
+                phone: $($("input[name=phone]")[i]).val(),
+                email: $($("input[name=email]")[i]).val(),
+                personalcode: $($("input[name=org]")[i]).val()
+            }
+            let create = false;
+            for (let prop in user) {
+                if (user[prop].length > 0) create = true;
+            }
+            if (create) {
+                user = JSON.stringify(user);
+                await $.post("/liveData/getLiveData.php", { action: "createPerson", user }).done((newId) => {
+                    $(`<input type=hidden value='${newId}' name='person${i}'>`).appendTo("form[name=request]");
+                });
+            }
 
+        } else {
+            $(`<input type=hidden value='${id}' name='person${i}'>`).appendTo("form[name=request]");
+        }
+
+    }
+    for (let i = 0; i < $("input[name=adressmove-to]").length; i++) {
+        let id = $($("input[name=adressmove-to]")[i]).parent().attr("id");
+        $(`<input type=hidden value='${id}' name='adressidmove-to${i}'>`).appendTo("form[name=request]");
+    }
+    for (let i = 0; i < $("input[name=adressmove-from]").length; i++) {
+        let id = $($("input[name=adressmove-from]")[i]).parent().attr("id");
+        $(`<input type=hidden value='${id}' name='adressidmove-from${i}'>`).appendTo("form[name=request]");
+    }
 
     function arrayInput(name, $type) {
         var inputs = $($type);
         let length = inputs.filter(`[name=${name}]`).length;
-        console.log(length)
         if (length > 1) {
             let inputsNew = inputs.filter(`[name=${name}]`);
             for (let i = 0; i < length; i++) {
@@ -30,7 +62,7 @@ $(".rut-buttons button").click(function() {
     var formaction = "/" + form.attr("action");
     var method = form.attr("method");
     var data = form.serialize();
-    
+
     $.ajax({
         type: method,
         url: formaction,

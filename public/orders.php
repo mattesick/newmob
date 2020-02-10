@@ -32,6 +32,7 @@
     
 
 <div class="alerts"></div>
+<div class="loading"><i class="fad fa-circle-notch fa-5x"></i><div>
 </body>
 
 </html>
