@@ -1,7 +1,6 @@
 <?php 
 //This is the dir where all the css folders lay. "The base"
 $dir = "css/";?>
-<link rel='icon' href='/assets/mk-icon.png' type='image/x-icon'/ >
 <link rel="stylesheet" href="<?php echo $dir;?>style.css">
 <link rel="stylesheet" href="<?php echo $dir;?>nav.css">
 <link rel="stylesheet" href="<?php echo $dir;?>footer.css">

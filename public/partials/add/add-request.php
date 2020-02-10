@@ -7,69 +7,60 @@ function showDropdownItems($title)
         while ($items->next()) {
             $itemTitle = $items->row["itemTitle"];
             // <!-- Shows all users and will be giving the option to delete the user since there is only admins allowed here.-->
-?>
+            ?>
 
             <option value="<?php echo $itemTitle ?>"><?php echo $itemTitle ?></option>
-<?php
+            <?php
         }
     }
 }
-$users = $GLOBALS["engine"]->provider->fetchResultSet('SELECT * FROM user')->stmt->fetchAll();
 function showInput($type, $name, $placeholder, $id = "", $label = true, $data = false, $readonly = false)
 {
-    global $users;
+
     if (isset($id) || $id == "") {
         $id = $GLOBALS["engine"]->makeId();
     }
     if ($label && $data && !$readonly) {
         $options = ``;
-        
-            foreach ($users as $key => $user ){
-                $userId = $user["id"];
-                 if($name == "email" && isset($user["email"])){
-                    $info = $user["email"];
-                } else if($name == "phone" && isset($user["phone"])){
-                    $info = $user["phone"];
-                } else if($name == "org" && isset($user["personalcode"])){
-                    $info = $user["personalcode"];
-                } else{
-                    $info = $user["firstname"] . " " . $user["lastname"];
-                }
-                
-                $options .= "<option value='$info - $userId'>";
+        $users = $GLOBALS["engine"]->provider->fetchResultSet('SELECT id FROM user');
+        if ($users->rowCount() !== 0) {
+            while ($users->next()) {
+                $userId = $users->row["id"];
+                $userName = $GLOBALS["engine"]->getName($userId);
+                $options .= "<option value='$userName - $userId'>";
             }
-       
+        }
         echo "
         <div>
-            <input type='$type' list='New$id'id='$id' placeholder=' ' name='" . $name . "'>
-            <label for='$id'>$placeholder</label>
-            <datalist class='userChoice'id='New$id'>
-            $options
-            </datalist>
+        <input type='$type' list='New$id'id='$id' placeholder=' ' name='" . $name . "'>
+        <label for='$id'>$placeholder</label>
+        <datalist class='userChoice'id='New$id'>
+        $options
+        </datalist>
         </div>
         ";
     } else if ($label && !$readonly) {
         echo "
         <div>
-            <input type='$type' id='$id' placeholder=' ' name='" . $name . "'>
-            <label for='$id'>$placeholder</label>
+        <input type='$type' id='$id' placeholder=' ' name='" . $name . "'>
+        <label for='$id'>$placeholder</label>
         </div>
         ";
     } else if (!$readonly) {
         echo "
-            <input type='$type' id='$id' placeholder='$placeholder'name='" . $name . "'>
+        <input type='$type' id='$id' placeholder='$placeholder'name='" . $name . "'>
         ";
     } else if ($label && $readonly) {
         echo "
         <div>
-            <input type='$type' id='$id' placeholder=' ' name='" . $name . "' readonly>
-            <label for='$id'>$placeholder</label>
+        <input type='$type' id='$id' placeholder=' ' name='" . $name . "' readonly>
+        <label for='$id'>$placeholder</label>
         </div>
         ";
     } else {
         echo "
         <input type='$type' id='$id' placeholder='$placeholder name='" . $name . "' readonly>
-    ";
+        ";
     }
 }
 ?>
@@ -95,7 +86,6 @@ function showInput($type, $name, $placeholder, $id = "", $label = true, $data = 
             <?php
             showInput("date", "dueDate", "När...");
             showInput("time", "dueTime", "Vilken tid...");
-            
             ?>
             <div class="custom-select select-half">
                 <select name="source">
@@ -117,10 +107,10 @@ function showInput($type, $name, $placeholder, $id = "", $label = true, $data = 
         <div class="customer-info">
             <?php
             showInput("text", "name", "Företagsnamn/Förnamn...", "", true, true);
-            showInput("text", "lname", "Efternamn...", "", true, true);
-            showInput("tel", "phone", "Tel...", "", true, true);
-            showInput("email", "email", "Epost...", "", true, true);
-            showInput("text", "org", "Org./Personnummer...", "", true, true);
+            showInput("text", "lname", "Efternamn...");
+            showInput("tel", "phone", "Tel...");
+            showInput("email", "email", "Epost...");
+            showInput("text", "org", "Org./Personnummer...");
             ?>
 
             <div class="add-person-button">
@@ -174,7 +164,7 @@ function showInput($type, $name, $placeholder, $id = "", $label = true, $data = 
             </div>
             <div>
                 <div>
-                    <input style="width:75%;" type="text" placeholder=" " name="adressmove-from" id="dsad2aasd2a">
+                    <input style="width:75%;" class="address-list-move-from" type="text" placeholder=" " name="adressmove-from" id="txtfromautocomplete">
                     <label for="dsad2aasd2a">Adress...</label>
                 </div>
                 <input style="width:25%;" type="number" placeholder="Nr..." name="adressNrmove-from">
@@ -227,7 +217,7 @@ function showInput($type, $name, $placeholder, $id = "", $label = true, $data = 
 
             <div>
                 <div>
-                    <input style="width:75%;" type="text" placeholder=" " name="adressmove-to" id="dsad2aasd2af">
+                    <input style="width:75%;" type="text" placeholder=" " name="adressmove-to" class="address-list-move-to" id="txttoautocomplete">
                     <label for="dsad2aasd2af">Adress...</label>
                 </div>
                 <input style="width:25%;" type="number" placeholder="Nr..." name="adressNrmove-to">
@@ -277,3 +267,8 @@ function showInput($type, $name, $placeholder, $id = "", $label = true, $data = 
         </div>
     </form>
 </div>
+<div id="map" style="height: 500px;width: 100%;border:1px #000 solid"></div>
+<div id="directions-panel" style="background-color: white;padding: 10px;margin-bottom: 20px;">
+
+</div>
+

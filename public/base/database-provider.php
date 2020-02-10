@@ -30,7 +30,7 @@ class DatabaseProvider
     public $properties;
     public $conn;
     public $stmt;
-    protected function open(){
+    protected function connect(){
         if($this->conn == null){
             try {
                 $this->conn = new PDO("mysql:host=" . $this->properties["host"] . ";dbname=" . $this->properties["database"].";", $this->properties['username'], $this->properties['password']);
@@ -41,7 +41,7 @@ class DatabaseProvider
         }
     }
     public function executeBatchQuery($sql){
-        $this->open();
+        $this->connect();
         try {
             $this->conn->exec($sql);
         }
@@ -64,7 +64,7 @@ class DatabaseProvider
         return $this->_executeQuery($query, 4, $params);
     }
     private function _executeQuery($query, $executionType, $params = []){
-        $this->open();
+        $this->connect();
         try {
             $this->stmt = $this->conn->prepare($query);
             $this->stmt->execute($params);
@@ -97,12 +97,11 @@ class DatabaseProvider
     }
     public function lastInsertId()
     {
-        $this->open();
+        $this->connect();
         return $this->conn->lastInsertId();
     }
-
     public function tableExists($table){
-        $this->open();
+        $this->connect();
         $query = $this->conn->query('SHOW TABLES');
         return in_array($table, $query->fetchAll(PDO::FETCH_COLUMN));
     }

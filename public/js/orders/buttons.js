@@ -22,3 +22,7 @@ $(".addOrder").click(function() {
     $.post("/liveData/buttonsAction.php", { action: "addOrder", oid })
     addAlert("Skapade en order!")
 });
+$("tr td:nth-child(1)").click(function() {
+    let oid = $(this).html();
+    location.href = "add.php?oid=" + oid;
+})

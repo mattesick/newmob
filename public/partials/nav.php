@@ -77,3 +77,10 @@
         }
     }
 </script>
+<div class="row">
+          <div class="col-lg-12">
+              <?php show_messsage('success'); ?>
+              <?php show_messsage('danger'); ?>
+              <?php show_messsage('info'); ?>
+          </div>
+      </div>

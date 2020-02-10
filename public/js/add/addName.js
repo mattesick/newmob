@@ -1,51 +1,40 @@
-$(".add-person").click(function(event, log = true) {
+$(".add-person").click(function() {
     //adding log
-    if(log) addLog("Person");
+    addLog("Person");
     let id = generateId();
-    let newId = {
-        name:$($("input[name=name]")[0]).attr("list"),
-        lname:$($("input[name=lname]")[0]).attr("list"),
-        phone:$($("input[name=phone]")[0]).attr("list"),
-        email:$($("input[name=email]")[0]).attr("list"),
-        org:$($("input[name=org]")[0]).attr("list"),
-    }
     $(`
     <div>
-    <input type='text' list='${newId.name}'id='name${id}' placeholder=' ' name='name'>
+    <input type='text' id='name${id}' placeholder=' ' name='name'>
     <label for='name${id}'>Företagsnamn/Förnamn...</label>
 </div>
 
 <div>
-    <input type='text' list='${newId.lname}'id='lname${id}' placeholder=' ' name='lname'>
+    <input type='text' id='lname${id}' placeholder=' ' name='lname'>
     <label for='lname${id}'>Efternamn...</label>
 </div>
 
 <div>
-    <input type='tel' list='${newId.phone}'id='phone${id}' placeholder=' ' name='phone'>
+    <input type='tel' id='phone${id}' placeholder=' ' name='phone'>
     <label for='phone${id}'>Tel...</label>
 </div>
 
 <div>
-    <input type='email' list='${newId.email}'id='email${id}' placeholder=' ' name='email'>
+    <input type='email' id='email${id}' placeholder=' ' name='email'>
     <label for='email${id}'>Epost...</label>
 </div>
 
 <div>
-    <input type='text' list='${newId.org}'id='org${id}' placeholder=' ' name='org'>
+    <input type='text' id='org${id}' placeholder=' ' name='org'>
     <label for='org${id}'>Org./Personnummer...</label>
 </div>
     <div class="add-person-button">
     <p id="${id}" class="shared-RUT"><i class="fas fa-plus-circle"></i>Delad RUT</p>
     <i class="fas fa-trash person-trash"></i></div>
 `).insertBefore($(this).parent());
-$('input[list^="New"]').off()
-$('input[list^="New"]').change(function() {
-    fillUserInfo(this);
-});
+    $("input[name=name]").off();
     $("input[name=name]").change(function() {
         findClosestButton(".shared-RUT", this);
     })
-
     $(".shared-RUT").off();
     $(".shared-RUT").click(function() {
         rut(this)
@@ -75,25 +64,27 @@ $(".shared-RUT").click(function() {
     rut(this)
 });
 
-const rut = (_this) => {
+const rut = (that) => {
     let length = 0;
     let id = "";
     for (let i = 0; i < $(".shared-RUT").length; i++) {
-        if ($(_this).is($($(".shared-RUT")[i]))) {
+        if ($(that).is($($(".shared-RUT")[i]))) {
             length = i;
-            id = $(_this).attr("id");
+            id = $(that).attr("id");
             break;
         }
     }
-    if ($(_this).text().includes("Ta bort delad RUT")) {
+    if ($(that).text().includes("Ta bort delad RUT")) {
+        //adding log
         addLog("removeRutPerson");
-        $(_this).html(`<i class="fas fa-plus-circle" aria-hidden="true"></i>Delad RUT`);
+        $(that).html(`<i class="fas fa-plus-circle" aria-hidden="true"></i>Delad RUT`);
         if ($(".person").length == 1) $("#" + id + "person").parent().remove();
         else $("#" + id + "person").remove();
 
     } else {
+        //adding log
         addLog("rutPerson");
-        $(_this).html(`<i class="fas fa-plus-circle" aria-hidden="true"></i>Ta bort delad RUT`);
+        $(that).html(`<i class="fas fa-plus-circle" aria-hidden="true"></i>Ta bort delad RUT`);
         let person = $($("input[name=name]")[length]).val();
         let personLength = $(".person").length;
         if ($(".shared-rut-calc").length == 0) {
@@ -125,9 +116,9 @@ $("input[name=name]").change(function() {
     findClosestButton(".shared-RUT", this);
 })
 
-function findClosestButton(dec, _this) {
-    let id = $($(_this).closest("input").nextAll(':has(' + dec + '):first').find(dec)).attr("id");
-    $("#" + id + "person h6").text($(_this).val());
+function findClosestButton(dec, that) {
+    let id = $($(that).closest("input").nextAll(':has(' + dec + '):first').find(dec)).attr("id");
+    $("#" + id + "person h6").text($(that).val());
 }
 
 
@@ -140,44 +131,6 @@ function generateId() {
     }
     return id;
 }
-
-
-$('input[list^="New"]').change(function() {
-    fillUserInfo(this);
-})
-function fillUserInfo(_this){
-    let userId = $(_this).val().split("-")[1] ? $(_this).val().split("-")[1] : 0;
-    if(userId){
-        $.post("liveData/getLiveData.php", { action: "getUser", userId }).done(data => {
-            data = JSON.parse(data);
-            if (data != null) {
-                let name = $(_this).attr("name")
-                    let index = 0;
-                    for(let i = 0; i < $(`input[name=${name}]`).length; i++){
-                        if($($(`input[name=${name}]`)[i]).attr("id")== $(_this).attr("id")){
-                            index = i;
-                            break;
-                        }
-                    }
-                    $($("input[name=name]")[index]).parent().attr("id", data["id"]);
-                    $($("input[name=name]")[index]).val(data["firstname"])
-                    $($("input[name=lname]")[index]).val(data["lastname"])
-                    $($("input[name=email]")[index]).val(data["email"])
-                    $($("input[name=phone]")[index]).val(data["phone"])
-                    $($("input[name=org]")[index]).val(data["personalcode"])
-                    if(index === 0){
-                        $($("input[name=badress]")[index]).val(data["billingadress"])
-                        $($("input[name=badressNr]")[index]).val(data["billingadressnr"])
-                        $($("input[name=fepost]")[index]).val(data["billingemail"])
-                        $($("input[name=zipcode]")[index]).val(data["zipcode"])
-                        $($("input[name=city]")[index]).val(data["city"])
-                        if(data["billingreference"] && data["billingreference"].length > 0)
-                            $(`[name=billingReference]`).parent().children(".select-selected").html(data["billingreference"]);
-                        else    
-                            $(`[name=billingReference]`).parent().children(".select-selected").html("Ingen");
-                    }
-
-            }
-        });
-    }
-}
+$("input[name=name]").change(function() {
+    console.log($(this));
+});

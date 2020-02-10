@@ -6,17 +6,6 @@ let moveInfo = {
     From:<?php echo json_encode($engine->provider->fetchRow('SELECT * FROM MoveInfo WHERE rid = ? AND state = "move-from"', array($_GET["oid"]))); ?>,
     To: <?php echo json_encode($engine->provider->fetchRow('SELECT * FROM MoveInfo WHERE rid = ? AND state = "move-to"', array($_GET["oid"]))); ?>
 }
-
-let users = [];
-<?php
-    $usersData = $engine->provider->fetchResultSet('SELECT firstname,lastname,phone,user.id,personalcode,zipcode,billingadress,billingadressnr,city,billingreference,billingemail,email,RequestConn.uid, RequestConn.rid FROM user LEFT JOIN RequestConn ON user.id=RequestConn.uid WHERE RequestConn.rid = ?', array($_GET["oid"]));
-    if ($usersData->rowCount() !== 0) {
-        while($usersData->next()){ ?>
-            users.push(<?php echo json_encode($usersData->row);?>);
-        <?php }
-    }
-?>
-
 let adressesFrom = [];
 <?php
 $adresses = $engine->provider->fetchResultSet('SELECT * FROM adress LEFT JOIN adressConn ON adress.id=adressConn.adid WHERE adressConn.rid = ? AND adress.state = "move-from"', array($_GET["oid"]));
@@ -29,7 +18,7 @@ if ($adresses->rowCount() !== 0) {
 ?>
 let adressesTo = [];
 <?php
-$adresses = $engine->provider->fetchResultSet('SELECT * FROM adress LEFT JOIN adressConn ON adress.id=adressConn.adid WHERE adressConn.rid = ? AND adress.state = "move-to"', array($_GET["oid"]));
+$adresses = $engine->provider->fetchResultSet('SELECT * FROM adress LEFT JOIN adressConn ON adress.id=adressConn.adid WHERE adressConn.rid = ? AND adress.state = "move-to" ORDER BY adress.position ASC', array($_GET["oid"]));
 if ($adresses->rowCount() !== 0) {
     while($adresses->next()){ ?>
         adressesTo.push(<?php echo json_encode($adresses->row);?>);
@@ -37,7 +26,6 @@ if ($adresses->rowCount() !== 0) {
     <?php }
 }
 ?>
-
 let fromPos = 0;
 let toPos = 0;
 function showAdresses(adresses){    
@@ -47,7 +35,7 @@ function showAdresses(adresses){
     $($(`.${adresses[i].state} .custom-select .select-selected`)[i]).html(adresses[i].typeOfBuilding);
     $($("input[name=bigElevator" + adresses[i].state+"]")[i]).prop("checked", adresses[i].bigElevator == 1);
     $($("input[name=smallElevator" + adresses[i].state+"]")[i]).prop("checked", adresses[i].smallElevator == 1);
-    $($("input[name=adress" + adresses[i].state+"]")[i]).val(adresses[i].streetname).parent().attr("id", adresses[i].adid);
+    $($("input[name=adress" + adresses[i].state+"]")[i]).val(adresses[i].streetname);
     $($(`.${adresses[i].state} .arrows`)[i]).attr("id", adresses[i].id);
     $($("input[name=adressNr" + adresses[i].state+"]")[i]).val(adresses[i].streetNumber);
     $($("input[name=zipcode" + adresses[i].state+"]")[i]).val(adresses[i].zipcode);
@@ -104,14 +92,4 @@ logs.forEach(log => {
     $("#all-logs").prepend("<span style=display:block>" + log.html + "</span>");
 });
 
-users.forEach((user, index) => {
-    if(index > 0) $(".add-person").trigger("click", false);
-    $($("input[name=name]")[index]).parent().attr("id", user.uid)
-    $($("input[name=name]")[index]).val(user.firstname);
-    $($("input[name=lname]")[index]).val(user.lastname);
-    $($("input[name=phone]")[index]).val(user.phone);
-    $($("input[name=email]")[index]).val(user.email);
-    $($("input[name=org]")[index]).val(user.personalcode);
-});
-
-</script>   
+</script>

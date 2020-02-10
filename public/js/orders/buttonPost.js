@@ -4,7 +4,6 @@ $.urlParam = function(name) {
     return results[1] || 0;
 }
 $(document).ready(() => {
-    $(".loading").show();
     if (req = $.urlParam("req")) {
         $.get("liveData/whichOrder.php", { req }).done(function(data) {
             $("main").empty();
@@ -14,7 +13,6 @@ $(document).ready(() => {
             });
             history.pushState("", req, "orders.php?req=" + req)
             $.getScript("/js/orders/buttons.js");
-            $(".loading").hide();
         }).fail(function() {
             window.location.href = "error.php";
         });
@@ -26,7 +24,6 @@ $(document).ready(() => {
                 liveDataPost(this);
             });
             $.getScript("/js/orders/buttons.js");
-            $(".loading").hide();
         }).fail(function() {
             window.location.href = "error.php";
         });
@@ -40,7 +37,6 @@ $("#button-navigation button").click(function() {
 function liveDataPost(that) {
     if ($(that).hasClass("active")) return;
     let req = $(that).text().toLowerCase().substring(0, 5);
-    $(".loading").show();
     $.get("liveData/whichOrder.php", { req }).done(function(data) {
         $("main").empty();
         $(data).appendTo("main");
@@ -49,7 +45,6 @@ function liveDataPost(that) {
         });
         history.pushState("", req, "orders.php?req=" + req)
         $.getScript("/js/orders/buttons.js");
-        $(".loading").hide();
     }).fail(function() {
         window.location.href = "error.php";
     });
