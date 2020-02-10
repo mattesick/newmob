@@ -1,0 +1,159 @@
+main {
+    margin: 4em;
+}
+
+.dashboard {
+    height: 100%;
+    width: 100%;
+    background: white;
+    box-shadow: var(--shadow);
+    overflow-y: scroll;
+    max-height: 80vh;
+}
+
+#button-navigation {
+    box-shadow: var(--shadow);
+    margin-bottom: 0;
+    display: grid;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}
+
+#button-navigation button,
+.order-table-buttons button {
+    border: 1px solid white;
+    background: var(--purple);
+    color: white;
+    padding: 10%;
+    font-weight: bold;
+    transition: var(--transition);
+    grid-row: 1;
+}
+
+#button-navigation button:hover,
+.order-table-buttons button:hover {
+    cursor: pointer;
+    background: var(--yellow);
+}
+
+.order-table-buttons i {
+    font-size: 1.5em !important;
+    color: var(--purple);
+}
+
+.order-table-buttons i:hover {
+    cursor: pointer;
+    color: black;
+}
+
+.active {
+    background: var(--yellow) !important;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    color: #646464;
+    empty-cells: show;
+}
+
+td,
+th {
+    text-overflow: ellipsis;
+    border: 1px solid #707070;
+    text-align: left;
+    padding: 8px;
+}
+
+th {
+    font-size: 10px;
+    background-color: #E8E8E8;
+}
+
+td {
+    font-size: 12px;
+}
+
+.incomplete {
+    background-color: #FF7C7C;
+}
+
+.order-table-buttons {
+    display: grid;
+    grid-gap: 5px;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.order-table-buttons button {
+    min-width: 13em;
+}
+
+.order-table-buttons button,
+.order-table-buttons i {
+    transition: var(--transition);
+    padding: 5%;
+    font-size: 10px;
+    grid-row: 1;
+    border: none;
+    text-align: center;
+}
+
+.order-table-buttons .note {
+    background-color: var(--yellow);
+    border: 1px solid var(--purple);
+}
+
+.color-index {
+    width: 40%;
+    margin: 2em 0;
+    border: 1px solid #707070;
+}
+
+.color-index h5 {
+    margin: 1em 0.5em;
+    color: #646464;
+}
+
+.color-index p {
+    margin: 0.5em 0;
+    display: flex;
+    align-items: center;
+}
+
+.box {
+    margin: 0 0.5em;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #707070;
+}
+
+.red {
+    background-color: #FF7C7C;
+}
+
+.white {
+    background-color: #fff;
+}
+
+.green {
+    background-color: #A4FF7C;
+}
+
+.yellow {
+    background-color: #F6D559;
+}
+
+tr td:nth-child(1) a {
+    color: var(--purple);
+    transition: var(--transition);
+    cursor: pointer;
+    text-decoration:none;
+}
+
+tr td:nth-child(1) a:hover {
+    color: var(--yellow);
+}

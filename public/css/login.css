@@ -1,0 +1,84 @@
+form {
+    border: 3px solid #f1f1f1;
+}
+
+input[type=email],
+input[type=password],
+input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px auto;
+    display: block;
+    border: 1px solid #ccc;
+}
+
+button {
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    background: var(--yellow);
+    color: var(--purple);
+    padding: 14px 20px;
+    margin: 8px auto;
+    border: none;
+    cursor: pointer;
+    width: 30%;
+    float: right;
+}
+
+button:hover {
+    transform: scale(1.02);
+    opacity: 0.8;
+}
+
+.imgcontainer {
+    background-image: var(--logo);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 25vh;
+}
+
+.container {
+    padding: 16px;
+    width: 30%;
+    margin: 0 auto;
+}
+
+span.psw {
+    cursor: pointer;
+    float: left;
+    padding-top: 16px;
+}
+
+span a {
+    transition: var(--transition);
+    text-decoration: none;
+    color: var(--purple);
+}
+
+span a:hover {
+    opacity: 0.8;
+}
+
+form label {
+    color: var(--purple);
+}
+
+.login-error {
+    display: block;
+    width: 100%;
+    color: red;
+    margin: 0 auto;
+}
+
+@media only screen and (max-width: 900px) {
+    .container {
+        width: 60%;
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    .container {
+        width: 100%;
+    }
+}

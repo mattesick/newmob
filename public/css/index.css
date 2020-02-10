@@ -1,0 +1,89 @@
+.welcome {
+    font-family: var(--font) !important;
+    font-weight: bold;
+    color: var(--purple);
+    padding: 2em 5em;
+    text-align: right;
+}
+
+main {
+    width: 100%;
+    padding: 0.5em 5em;
+    display: grid;
+    grid-template-columns: 7fr 2fr;
+    grid-template-rows: 4fr 2fr 3fr;
+    grid-template-areas: "dashboard todo" "dashboard news" "dashboard news";
+    grid-gap: 1em;
+    font-family: var(--font);
+}
+
+.dashboard,
+.news,
+.todo {
+    padding: 2em;
+    background: white;
+    box-shadow: var(--shadow);
+    color: #646464;
+}
+
+.dashboard {
+    grid-area: dashboard;
+    overflow: auto;
+}
+
+.news {
+    grid-area: news;
+}
+
+.todo {
+    grid-area: todo;
+    overflow: hidden;
+}
+
+#addTodo {
+    padding-top: 10px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    color: var(--purple);
+}
+
+#addTodo i:hover {
+    transition: var(--transition);
+}
+
+#addTodo i:hover {
+    cursor: pointer;
+    color: var(--yellow);
+}
+
+.todo-tasks,
+.news-new {
+    height: 80%;
+    overflow-y: auto;
+}
+
+.todo-tasks p,
+.news-new p {
+    font-weight: bold;
+    padding: 10px;
+}
+
+.news a {
+    text-decoration: none;
+}
+
+#news-readmore {
+    background: var(--purple);
+    color: white;
+    padding: 10px;
+    width: 50%;
+    text-align: center;
+    transition: var(--transition);
+    box-shadow: var(--shadow);
+}
+
+#news-readmore:hover {
+    background: var(--yellow);
+}

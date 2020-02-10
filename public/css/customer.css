@@ -1,0 +1,146 @@
+.content {
+    grid-gap: 1em;
+    height: 100%;
+    display: grid;
+    margin: 2em;
+    grid-template-areas: "userinfo table table" "userinfo färgindex färgindex" "userinfo notes notes" ". notes notes" "removeCustomer . sendEmail";
+    grid-template-columns: 3fr 3fr 3fr;
+    z-index:-99;
+}
+#button-navigation{
+    z-index:99;
+}
+
+.user-info {
+    grid-area: userinfo;
+    color: #646464;
+    position: relative;
+}
+
+.user-info::after {
+    content: "";
+    height: 100%;
+    top: 0;
+    right: 10px;
+    position: absolute;
+    width: 2px;
+    background: rgba(100, 100, 100, 0.2);
+}
+
+.user-info .head-info {
+    font-size: 1.1em;
+}
+
+.user-info .head-info,
+.user-info,
+.left-over {
+    margin: 0.5em 0;
+}
+
+.user-log .log {
+    border: 1px solid #646464;
+    padding: 0.5em;
+    height: 100%;
+    min-height: 70vh;
+    max-height: 70vh;
+    overflow: auto;
+    width: 90%;
+}
+
+.user-log .log p {
+    margin: 0.5em 0;
+}
+
+.risk {
+    display: flex;
+    align-items: center;
+    margin: 1em 0;
+}
+
+.risk span {
+    margin: 0 0.4em;
+    display: inline-block;
+    border: 1px solid #646464;
+    height: 30px;
+    width: 50px;
+    background: var(--yellow)
+}
+
+.notes {
+    padding-top: 1em;
+    grid-area: notes;
+    border-top: 2px solid rgba(100, 100, 100, 0.2);
+}
+
+.notes textarea {
+    min-width: 100%;
+    min-height: 20vh;
+}
+
+.notes .all-notes p {
+    margin: 1em 0;
+    color: #646464;
+}
+
+.user-table {
+    grid-area: table;
+    max-height: 55vh;
+    width: 100%;
+    background: white;
+    box-shadow: var(--shadow);
+    overflow: auto;
+}
+
+.color-index {
+    grid-area: färgindex;
+    color: #646464;
+}
+
+.notis {
+    position: relative;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.notis::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: red;
+    border-radius: 100%;
+}
+
+.remove-customer {
+    grid-area: removeCustomer;
+}
+
+.send-email {
+    text-align: right;
+    grid-area: sendEmail;
+}
+
+.remove-customer button {
+    background: #FF4343;
+}
+
+.send-email button {
+    background: var(--purple)
+}
+
+.remove-customer button,
+.send-email button {
+    transition: var(--transition);
+    padding: 1em;
+    color: white;
+    border: none;
+    box-shadow: var(--shadow);
+}
+
+.remove-customer button:hover,
+.send-email button:hover {
+    cursor: pointer;
+    background: var(--yellow);
+}

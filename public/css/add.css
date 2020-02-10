@@ -1,0 +1,474 @@
+.add-welcome {
+    font-family: var(--font) !important;
+    font-weight: bold;
+    font-size: 1.3em;
+    color: var(--purple);
+    padding: 2em 0;
+    text-align: left;
+}
+
+.add-welcome h2 {
+    float: left;
+}
+
+input {
+    color: #5D5D5D;
+    font-size: 1.1em;
+}
+
+.dashboard input {
+    width: 100%;
+}
+
+input::placeholder {
+    color: #CCCCCC;
+}
+
+main {
+    margin: 0 4em;
+}
+
+@media only screen and (max-width: 1000px) {
+    main {
+        margin: 0 3em;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    main {
+        margin: 0 1em;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    main {
+        margin: 0 0.2em;
+    }
+}
+
+.dashboard div h2 {
+    color: #646464;
+}
+
+.fprice {
+    font-size: 15px;
+    float: right;
+}
+
+.fprice input {
+    margin: 0 1em;
+}
+
+#article-box {
+    box-shadow: var(--shadow);
+    padding: 3em 2em;
+    background: white;
+    width: 100%;
+    color: #646464;
+    font-family: var(--font);
+}
+
+#article-box h2 {
+    padding: 1em;
+}
+
+#articles {
+    box-shadow: var(--shadow);
+    margin: 1em 0;
+    margin-bottom: 0;
+    display: grid;
+}
+
+.options {
+    display: grid;
+}
+
+#articles button {
+    background: var(--purple);
+    color: white;
+    padding: 10%;
+    border: none;
+    font-weight: bold;
+    transition: var(--transition);
+    grid-row: 1;
+}
+
+#articles button:hover,
+#articles-dropdown button:hover {
+    cursor: pointer;
+    background: var(--yellow) !important;
+}
+
+#articles-dropdown {
+    position: relative;
+    width: 100%;
+    box-shadow: var(--shadow);
+    background: white;
+    display: none;
+}
+
+#articles-dropdown .option {
+    box-shadow: var(--shadow);
+    position: relative;
+    background: white;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, [col-start] auto [col-end]);
+    border-bottom: 1px solid #707070;
+}
+
+#articles-dropdown .option button {
+    margin: 1em;
+    grid-row: 1;
+    padding: 1em 3em;
+    box-shadow: var(--shadow);
+}
+
+#articles-dropdown h2 {
+    grid-row: 1;
+    display: inline-block;
+    width: auto;
+}
+
+#articles-dropdown button {
+    padding: 1em;
+    color: white;
+    transition: var(--transition);
+    background: var(--purple);
+}
+
+#choice {
+    display: inline;
+    vertical-align: middle;
+}
+
+.active {
+    background: var(--yellow) !important;
+}
+
+.options {
+    box-shadow: var(--shadow);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.chosen-article {
+    border: 2px solid var(--purple) !important;
+    position: relative;
+}
+
+.chosen-article .inputs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    align-items: center;
+    padding: 1em 0;
+}
+
+.chosen-article .inputs div {
+    margin: 15px 5px;
+}
+
+.final,
+.chosen-article {
+    margin-top: 5em;
+    box-shadow: var(--shadow);
+    padding: 3em 2em;
+    background: white;
+    width: 100%;
+    color: #646464;
+    font-family: var(--font);
+}
+
+.chosen-article .remove-article {
+    position: absolute;
+    padding: 0.5em;
+    right: 0;
+    top: 0;
+}
+
+.chosen-article .remove-article i {
+    transition: var(--transition);
+}
+
+.chosen-article .remove-article i:hover {
+    color: red;
+    cursor: pointer;
+}
+
+.chosen-article .inputs div {
+    grid-row: 1;
+}
+
+.final textarea {
+    resize: none;
+    width: 100%;
+    height: 100%;
+    grid-area: ant;
+}
+
+.final .rut-box {
+    width: 100%;
+    padding-right: 1em;
+}
+
+.rut-box input[type=checkbox] {
+    margin: 3px;
+}
+
+.rut-box p {
+    text-align: right;
+}
+
+#rut-calc {
+    grid-area: calc;
+}
+
+.rut-calc-grid {
+    display: grid;
+    grid-template-areas: "ant calc";
+    grid-template-columns: 4fr 2fr;
+}
+
+#rut-calc {
+    margin: 0 0.5em;
+    display: grid;
+    grid-template-columns: 5fr 5fr;
+    border: 1px solid #707070;
+    padding: 0.7em;
+}
+
+#rut-calc .sum {
+    border: 1px solid #707070;
+    padding: 1em;
+    margin: 0 0.2em;
+}
+
+#rut-calc h3 {
+    white-space: nowrap;
+    font-family: sans-serif;
+    height: 30px;
+}
+
+.rut-buttons {
+    display: grid;
+    justify-content: flex-end;
+}
+
+.final .rut-buttons button {
+    float: none;
+    padding: 1em;
+    grid-row: 1;
+}
+
+#fileInput {
+    border-radius: 5px;
+    width: 100%;
+    padding: 20px 30px;
+    box-shadow: var(--shadow);
+    background: var(--background);
+    border: 1px solid #707070;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+#files input[type=submit] {
+    margin: 1em 0;
+    font-size: 20px;
+    float: right;
+    background: var(--purple);
+    color: white;
+    border: none;
+    transition: var(--transition);
+    border-radius: 5px;
+}
+
+#files input[type=submit]:hover {
+    cursor: pointer;
+    background: var(--yellow) !important;
+}
+
+#fileInput:hover {
+    background: #ccc !important;
+}
+
+#files {
+    padding: 1em;
+    background: white;
+    grid-area: files;
+    box-shadow: var(--shadow);
+}
+
+#logs {
+    grid-area: log;
+}
+
+#logs h4 {
+    color: #646464;
+    margin: 0.5em 0;
+    text-align: right;
+}
+
+#logs #all-logs {
+    font-family: var(--font);
+    box-shadow: var(--shadow);
+    height: 20vh;
+    padding: 1em;
+    background: white;
+    overflow-y: auto;
+}
+
+#log-and-files {
+    font-size: 14px;
+    margin: 3em 0;
+    display: grid;
+    grid-template-areas: "files . log";
+    grid-template-columns: 3fr 3fr 3fr;
+}
+
+#show-files {
+    width: 70%;
+    max-height: 15vh;
+    overflow-y: auto;
+}
+
+#show-files a {
+    text-decoration: none;
+    color: var(--purple);
+    transition: var(--transition);
+}
+
+#show-files span {
+    margin: 0.5em;
+    display: block;
+}
+
+#show-files .deleteFile {
+    color: #FF7C7C;
+    transition: var(--transition);
+}
+
+#show-files .deleteFile:hover {
+    color: red;
+    cursor: pointer;
+}
+
+#show-files a:hover {
+    color: var(--yellow) !important;
+}
+
+#show-files a:nth-child(1) {
+    margin-top: 1em;
+}
+
+#note .select-items {
+    min-height: 40px;
+}
+
+.arrows i {
+    color: var(--purple);
+    margin: 0 1em;
+    transition: var(--transition);
+}
+
+.arrows .fa-exchange {
+    transform: rotateZ(90deg)
+}
+
+.arrows .fa-trash {
+    color: #FF7C7C;
+}
+
+.arrows .fa-trash:hover {
+    color: red !important;
+}
+
+.arrows i:hover {
+    cursor: pointer;
+    color: var(--yellow) !important;
+}
+
+.amount {
+    display: inline-block;
+    height: 60px;
+    width: 330px;
+}
+
+.money {
+    display: inline-block;
+    height: 100%;
+    width: 70%;
+    margin-right: 0.2em;
+}
+
+.money span,
+.share span {
+    display: flex;
+    border: none !important;
+    float: right;
+    height: 100%;
+    align-items: center;
+    padding-right: 5px;
+}
+
+.money input,
+.share input {
+    font-size: 15px;
+    height: 100%;
+    border: none;
+}
+
+.money input {
+    width: 75%;
+}
+
+.share input {
+    width: 55%;
+}
+
+.share {
+    display: inline-block;
+    height: 100%;
+    width: 25%;
+    float: right;
+}
+
+.shared-rut-calc span {
+    border: 1px solid #707070;
+}
+
+.shared-rut-calc .person {
+    display: inline-block;
+    margin-right: 1em;
+}
+
+.shared-rut-calc {
+    margin-top: 0.5em;
+}
+
+label {
+    display: block;
+    position: absolute;
+}
+
+label {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: text;
+    color: #CCCCCC;
+    transform: translate(0.5rem, 0.8rem);
+    transition: all 0.2s ease-out;
+}
+
+input:focus+label,
+textarea:focus+label,
+input:not(:placeholder-shown)+label,
+textarea:not(:placeholder-shown)+label {
+    font-size: 13px;
+    transform: translate(0, -1rem);
+    color: #111;
+}

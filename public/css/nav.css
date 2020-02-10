@@ -1,0 +1,245 @@
+nav {
+    background: white;
+    margin-bottom: 600px;
+    z-index: 99;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    margin: 0;
+    height: 80px;
+    font-family: Helvetica, Neue;
+    box-shadow: 0px 6px 19px -6px rgba(0, 0, 0, 0.75);
+}
+
+nav .nav-item p {
+    cursor: pointer;
+}
+
+nav ul {
+    display: flex;
+    height: 100%;
+    padding: 0;
+    justify-content: left;
+    align-content: center;
+    padding-inline-start: 0;
+}
+
+nav ul li {
+    height: 100%;
+    list-style-type: none;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    transition: var(--transition);
+    border-right: 1px solid var(--background);
+}
+
+nav ul li p,
+#search form {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    vertical-align: middle;
+    font-weight: bold;
+    padding: 0 1em;
+}
+
+#logo {
+    background: var(--purple);
+    background-image: var(--logo);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0;
+    width: 150px;
+    height: 100%;
+    border-right: none !important;
+}
+
+#register {
+    background-image: url("../assets/register.svg");
+}
+
+#add {
+    background-image: url("../assets/add.svg");
+}
+
+#register,
+#add {
+    height: 60%;
+    width: 80px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+nav ul .nav-item,
+#logo {
+    display: inline-block;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    color: var(--purple);
+    transition: var(--transition);
+}
+
+nav ul li:hover {
+    background-color: var(--yellow);
+}
+
+#search:hover {
+    background: white;
+}
+
+nav ul li i {
+    padding-left: 20px;
+}
+
+.right-side-menu {
+    margin-left: auto;
+}
+
+.right-side-menu .nav-item {
+    float: right;
+}
+
+#search i {
+    border: 1px solid var(--background);
+    padding: 6px;
+    font-size: 17px;
+}
+
+#search input[type=text] {
+    padding: 6px;
+    border: 1px solid var(--background);
+    font-size: 17px;
+}
+
+#search button {
+    background: var(--background);
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    position: absolute;
+    width: auto;
+    box-shadow: 0px 16px 25px -24px rgba(0, 0, 0, 0.75);
+    transition: all ease 0ms !important;
+    background: white;
+    display: block;
+    margin: 0;
+    height: 0;
+    border: none;
+    min-width: 200px;
+}
+
+.dropdown-item {
+    transition: all ease-in-out 0ms !important;
+    padding: 10px;
+    width: 100%;
+    display: block;
+    text-align: left;
+    visibility: hidden;
+    height: auto;
+    border-bottom: 1px solid var(--background);
+}
+
+.dropdown-item li {
+    transition: all ease-in-out 0ms !important;
+    border: none;
+    font-size: bold !important;
+    color: var(--purple);
+    text-align: left;
+}
+
+.show .dropdown-content {
+    height: auto;
+}
+
+.show .dropdown-item {
+    visibility: visible;
+}
+
+.dropdown-item:hover {
+    background: var(--yellow);
+    ;
+}
+
+.icon {
+    height: 100%;
+    padding: 0 1em;
+    display: none;
+    transition: var(--transition);
+}
+
+.icon:hover {
+    background: var(--background);
+}
+
+.icon:hover i {
+    color: var(--purple);
+}
+
+.icon i {
+    color: var(--yellow);
+    height: 100%;
+    padding: 0;
+}
+
+@media screen and (max-width: 1100px) {
+    nav .nav-item {
+        display: none !important;
+    }
+    .responsive .nav-item {
+        display: block !important;
+    }
+    nav a.icon {
+        float: right;
+        display: block;
+        padding-top: 0.6em;
+    }
+    nav {
+        height: auto;
+    }
+    nav ul {
+        display: block;
+    }
+    .nav-item {
+        display: block;
+        width: 100%;
+    }
+    nav ul li {
+        display: block;
+        width: 100%;
+    }
+    #register,
+    #add,
+    #logo {
+        height: 50px;
+        width: 100%;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: left;
+    }
+    .dropdown-content {
+        position: relative;
+        width: 100%;
+        box-shadow: none;
+        transition: all ease 0ms !important;
+        background: white;
+        display: block;
+        margin: 0;
+        height: 0;
+        border: none;
+    }
+    .right-side-menu {
+        margin-left: 0;
+        width: 100%;
+    }
+    .right-side-menu a {
+        float: right;
+    }
+}
