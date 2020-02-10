@@ -56,6 +56,7 @@ include_once "rights/auth.php"; ?>
                 },
                 events: events,
                 themeSystem: "bootstrap4",
+                defaultView:"timeGridWeek",
                 locale: initialLocaleCode,
                 buttonIcons: true, // show the prev/next text
                 weekNumbers: true,
@@ -218,6 +219,7 @@ include_once "rights/auth.php"; ?>
             </div>
         </div>
     </div>
+    <div class="loading"><i class="fad fa-circle-notch fa-5x"></i><div>
 </body>
 
 </html>

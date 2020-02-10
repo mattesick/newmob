@@ -11,7 +11,6 @@ function newAdress(e, parentClass) {
 
     let insertAfter = ".insertAfter" + parentClass;
     let id = generateId();
-    let map_id = "adress"+id;
     $("." + parentClass + " .add-adress").parent("a").remove();
     $(`          
         <div class="custom-select new-custom-select">
@@ -26,7 +25,7 @@ function newAdress(e, parentClass) {
         </div>
         <div>
         <div>
-            <input style="width:75%;" type="text" placeholder="" class="address-list-${parentClass}" name="adress${parentClass}" id="adress${id}">
+            <input style="width:75%;" type="text" placeholder=" " name="adress${parentClass}" id="adress${id}">
             <label for="adress${id}">Adress...</label>
         </div>
         <input style="width:25%;" type="number" placeholder="Nr..." name="adressNr${parentClass}" id="adressnr${id}">
@@ -66,8 +65,7 @@ function newAdress(e, parentClass) {
         <i class="fas fa-trash"></i>
     </div>
         `).insertAfter(insertAfter);
-    google.maps.event.addDomListener(window, 'load', initialize(map_id));
-    
+
     var x, i, j, selElmnt, a, b, c;
     /*look for any elements with the class "custom-select":*/
     x = document.getElementsByClassName("new-custom-select")[document.getElementsByClassName("new-custom-select").length - 1];

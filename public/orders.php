@@ -11,7 +11,8 @@
     ?>
     <link rel="stylesheet" href="css/order.css">
     <script src="js/orders/buttonPost.js" defer></script>
-    <script src="js/orders/buttons.js"></script>
+    <script src="js/orders/buttons.js" defer></script>
+    
 </head>
 
 <body>
@@ -29,6 +30,7 @@
             </div>
         </div>
     </div>
+    <div class="loading"><i class="fad fa-circle-notch fa-5x"></i><div>
     
 
 <div class="alerts"></div>

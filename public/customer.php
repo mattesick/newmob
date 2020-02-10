@@ -1,5 +1,10 @@
 <?php require_once "../boot.php";
-include "rights/auth.php"; ?>
+include "rights/auth.php"; 
+if(!isset($_GET["uid"]) || !$engine->getUserWithId($_GET["uid"]) || $engine->getRole($_SESSION["uid"]) != "Admin"){
+    $engine->redirect("/");
+}
+
+?>
 <!DOCTYPE html>
 <html lang="sv">
 
@@ -51,7 +56,7 @@ include "rights/auth.php"; ?>
                             <th></th>
                         </tr>
                         <?php
-                        $result = $engine->provider->fetchResultSet('SELECT * FROM Request WHERE state = "FÖRFRÅGAN" OR state = "INCOMPLETE" ORDER BY lastUpdated DESC');
+                        $result = $engine->provider->fetchResultSet('SELECT * FROM Request lastUpdated DESC');
                         if ($result->rowCount() !== 0) {
                             while ($result->next()) : ?>
                                 <tr <?php if ($result->row["state"] == "INCOMPLETE") echo "class=incomplete" ?>>
@@ -88,17 +93,22 @@ include "rights/auth.php"; ?>
                     <p><span class="box white"></span> Avslutad</p>
                     <p><span class="box notis"></span> Reklamation</p>
                 </div>
+                <?php 
+    
+                    $user = $engine->provider->fetchRow("SELECT * FROM user WHERE id = ?", array($_GET["uid"]));
+           
+                ?>
                 <div class="user-info">
                     <div class="head-info">
-                        <div><b>NAMN:</b> MATTIAS ANDERSSON</div>
-                        <div><b>PERSONNUMMER:</b> 0004186912</div>
+                        <div><b>NAMN:</b> <?php echo $engine->getName($user["id"]);?></div>
+                        <div><b>PERSONNUMMER:</b> <?php echo $user["personalcode"];?></div>
                     </div>
                     <div class="left-over">
-                        <div><b>Faktueringsadress:</b> Annagatan 65</div>
-                        <div><b>Postnummer:</b> 311 23</div>
-                        <div><b>Ort:</b> Malmö</div>
-                        <div><b>Tel:</b> 074 554 54 54</div>
-                        <div><b>Epost:</b> anna.andersson93@gmail.com</div>
+                        <div><b>Faktueringsadress:</b> <?php echo $user["billingadress"] . " " . $user["billingadressnr"];?></div>
+                        <div><b>Postnummer:</b> <?php echo $user["zipcode"];?></div>
+                        <div><b>Ort:</b> <?php echo $user["city"];?></div>
+                        <div><b>Tel:</b> <?php echo $user["phone"];?></div>
+                        <div><b>Epost:</b> <?php echo $user["email"]; ?></div>
                     </div>
                     <div class="risk">
                         <b>Risk:</b>

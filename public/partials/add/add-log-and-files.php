@@ -1,4 +1,3 @@
-
 <div id="log-and-files">
     <div id="files">
         <form action="liveData/uploadFile.php" method="POST" enctype="multipart/form-data" name="fileUploader" id="fileUploader">

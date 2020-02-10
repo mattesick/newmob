@@ -5,6 +5,10 @@
     margin: 2em;
     grid-template-areas: "userinfo table table" "userinfo färgindex färgindex" "userinfo notes notes" ". notes notes" "removeCustomer . sendEmail";
     grid-template-columns: 3fr 3fr 3fr;
+    z-index:-99;
+}
+#button-navigation{
+    z-index:99;
 }
 
 .user-info {
@@ -93,6 +97,7 @@
 }
 
 .notis {
+    position: relative;
     border: none;
     display: flex;
     justify-content: center;

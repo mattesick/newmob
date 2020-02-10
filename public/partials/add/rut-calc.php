@@ -1,4 +1,3 @@
-
 <div class="final">
     <div class="rut-box">
         <p>Önskas RUT?<input type="checkbox" name="" id=""></p>
