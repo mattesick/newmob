@@ -33,27 +33,37 @@ if (isset($_SESSION["uid"]) && getRole($_SESSION["uid"]) != "Admin") {
         $firstName = mysqli_real_escape_string($conn, $_POST['fname']);
         $lastName = mysqli_real_escape_string($conn, $_POST['lname']);
         //checks if the passwrod is shorter or equal than 7 and if so an error will be saved.
+        $error = "";
         if (strlen($password) <= 7) {
             $error = "Password must be longer than 7 characters";
+            set_message('danger',$error);   
             //this confirms that we typed in the same password.
         } elseif ($password != $confirmPassword) {
             $error = "Your password doesn't match!";
+            set_message('danger',$error);   
             //checks if username already exists.
         } elseif (verifyUser($email)) {
-            $error = "User exists";
+            set_message('danger',"Errro! User already exists");   
         } else {
             //if nothing went wrong we add the user to our database and send the admin to  allUsers.php.
-            addUser($email, $password, $firstName, $lastName, $role);
-            
+            if(addUser($email, $password, $firstName, $lastName, $role)){
+                set_message('success',"User inserted successfully.");    
+            }
         }
+        redirect_page("login.php");
     }
 
     ?>
     <form action="create.php" method="post">
-        <div class="imgcontainer">
-        </div>
-
+        <br><br><br>
         <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <?php show_messsage('success'); ?>
+                    <?php show_messsage('danger'); ?>
+                    <?php show_messsage('info'); ?>
+                </div>
+            </div>
             <label for="email"><b>Email</b></label>
             <input type="email" placeholder="Epost.." name="email" required>
 
@@ -66,17 +76,17 @@ if (isset($_SESSION["uid"]) && getRole($_SESSION["uid"]) != "Admin") {
             <label for="lname"><b>Efternamn</b></label>
             <input type="text" placeholder="Efternamn.." name="lname" required>
             <?php if (isset($_SESSION["uid"]) && getRole($_SESSION["uid"]) == "Admin") : ?>
-                <label for="role"><b>Roll</b></label>
-                <select id="inputState" name="role" class="form-control">
-                    <option selected>Customer</option>
-                    <option>Employee</option>
-                    <option>Admin</option>
-                </select>
-            <?php endif ?>
-            <button type="submit">Registrera</button>
-        </div>
+            <label for="role"><b>Roll</b></label>
+            <select id="inputState" name="role" class="form-control">
+                <option selected>Customer</option>
+                <option>Employee</option>
+                <option>Admin</option>
+            </select>
+        <?php endif ?>
+        <button type="submit">Registrera</button>
+    </div>
 
-    </form>
+</form>
 
 </body>
 

@@ -1,40 +1,20 @@
 
 $(".rut-buttons button").click(function() {
-    $(".loading").show();
     let action = $(this).attr("id");
     let internalNotes = $("#internalNotes").val();
     let generatedId = $("body").attr("id");
     $(`<input type=hidden value=${action} name='action' >`).appendTo("form[name=request]");
     $(`<input type=hidden value='${internalNotes}' name='internalNotes'>`).appendTo("form[name=request]");
     $(`<input type=hidden value='${generatedId}' name='generatedId'>`).appendTo("form[name=request]");
-    for(let i = 0; i < $("input[name=name]").length; i++){
-        let id = $($("input[name=name]")[i]).parent().attr("id") ? $($("input[name=name]")[i]).parent().attr("id") : 0;
-        $(`<input type=hidden value='${id}' name='person${i}'>`).appendTo("form[name=request]");
-    }
-    for(let i = 0; i < $("input[name=adressmove-to]").length; i++){
-        let id = $($("input[name=adressmove-to]")[i]).parent().attr("id");
-        $(`<input type=hidden value='${id}' name='adressidmove-to${i}'>`).appendTo("form[name=request]");
-    }
-    for(let i = 0; i < $("input[name=adressmove-from]").length; i++){
-        let id = $($("input[name=adressmove-from]")[i]).parent().attr("id");
-        $(`<input type=hidden value='${id}' name='adressidmove-from${i}'>`).appendTo("form[name=request]");
-    }
 
 
     function arrayInput(name, $type) {
         var inputs = $($type);
         let length = inputs.filter(`[name=${name}]`).length;
+        console.log(length)
         if (length > 1) {
             let inputsNew = inputs.filter(`[name=${name}]`);
-            let whichAdress = false;
-            if(name == "adressmove-to" || name == "adressmove-from") {whichAdress = true;}
-            
             for (let i = 0; i < length; i++) {
-                // if(whichAdress){
-                //     let id = $($(inputsNew)[i]).parent().attr("id") ? $($(inputsNew)[i]).parent().attr("id") : "";
-                //     if(id != "")
-                //         $($(inputsNew)[i]).val($($(inputsNew)[i]).val() + "::" + id)
-                // }
                 $($(inputsNew)[i]).attr("name", $($(inputsNew)[i]).attr("name") + i);
             }
         }
