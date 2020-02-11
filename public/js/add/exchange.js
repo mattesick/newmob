@@ -1,5 +1,4 @@
 $("#exchange").click(() => {
-    //adding log
     addLog("Exchange");
     let movefrom = $(".move-from");
     let moveto = $(".move-to");

@@ -34,8 +34,6 @@ function addAlert(msg, color) {
         $("#" + id + " .alert-after").fadeOut(400, () => {
             $("#" + id).fadeOut(400);
         });
-
-
         setTimeout(() => {
             $("#" + id).remove();
         }, 800)

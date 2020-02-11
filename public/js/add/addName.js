@@ -148,7 +148,7 @@ $('input[list^="New"]').change(function() {
 function fillUserInfo(_this) {
     let userId = $(_this).val().split("-")[1] ? $(_this).val().split("-")[1] : 0;
     if (userId) {
-        $.post("liveData/getLiveData.php", { action: "getUser", userId }).done(data => {
+        $.post("liveData/database_api.php", { action: "getUser", userId }).done(data => {
             data = JSON.parse(data);
             if (data != null) {
                 let name = $(_this).attr("name")

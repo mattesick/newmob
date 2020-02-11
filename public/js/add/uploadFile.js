@@ -1,12 +1,12 @@
 let uploadFiles = [];
 $("#uploadFile").click(e => {
     e.preventDefault();
-    var form = $("form[name=fileUploader]");
-    var formaction = "/" + form.attr("action");
-    var method = form.attr("method");
-    var data = form.serialize();
-    var file_data = $("#fileInput").prop('files')[0];
-    var form_data = new FormData();
+    let form = $("form[name=fileUploader]");
+    let formaction = "/" + form.attr("action");
+    let method = form.attr("method");
+    let data = form.serialize();
+    let file_data = $("#fileInput").prop('files')[0];
+    let form_data = new FormData();
     if (file_data) {
         areYouSure("Vill du ladda upp " + file_data.name + "?", success => {
             if (success) {
@@ -80,7 +80,7 @@ function deleteFile(_this) {
     let path = $($(_this).parent().children()[1]).attr("href");
     let filename = $(_this).parent().children()[1].innerHTML;
     areYouSure("Vill du ta bort " + filename + "?", () => {
-        $.post("liveData/getLiveData.php", { action: "removeFile", path }).done(success => {
+        $.post("liveData/database_api.php", { action: "removeFile", path }).done(success => {
             if (success) {
                 $(_this).parent().remove();
                 addLog("removeFile");

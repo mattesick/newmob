@@ -76,33 +76,33 @@ include_once "rights/auth.php"; ?>
                     areYouSure("Vill du flytta " + info.event.title + " till " + date.split("T")[0] + ", " + date.split("T")[1].substr(0, 5) + "?", () => {
                         //yes press
                         if (info.view.type == "dayGridMonth")
-                            $.post("liveData/getLiveData.php", {
+                            $.post("liveData/database_api.php", {
                                 action: "draggedRequestDate",
                                 id: info.event.id,
                                 date: date
                             })
                         switch (info.view.type) {
                             case "dayGridMonth":
-                                $.post("liveData/getLiveData.php", {
+                                $.post("liveData/database_api.php", {
                                     action: "draggedRequestDate",
                                     id: info.event.id,
                                     date: date
                                 })
                                 break;
                             case "timeGridWeek":
-                                $.post("liveData/getLiveData.php", {
+                                $.post("liveData/database_api.php", {
                                     action: "draggedRequestDate",
                                     id: info.event.id,
                                     date: date
                                 });
-                                $.post("liveData/getLiveData.php", {
+                                $.post("liveData/database_api.php", {
                                     action: "draggedRequestTime",
                                     id: info.event.id,
                                     date: date
                                 })
                                 break;
                             case "timeGridDay":
-                                $.post("liveData/getLiveData.php", {
+                                $.post("liveData/database_api.php", {
                                     action: "draggedRequestTime",
                                     id: info.event.id,
                                     date: date

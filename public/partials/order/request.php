@@ -33,6 +33,7 @@
                 <td><a href="add.php?oid=<?php echo $result->row["id"]?>"><?php echo $result->row["id"] ?></a></td>
                     <td><?php echo $result->row["created"] ?></td>
                     <td><a href="customer.php?uid=<?php echo $user["uid"]?>"><?php echo $user["firstname"] . " " . $user["lastname"];?></a></td>
+                    <td><?php echo explode(" ",$result->row["dueDate"])[0] ?></td>
                     <td><?php echo $result->row["dueTime"] ?></td>
                     <td>Flyttpaket 2, Malmö - Arlöv</td>
                     <td>LB</td>

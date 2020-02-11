@@ -4,7 +4,7 @@ $("#results").scroll(function() {
         if (state == "FÖRFRÅGNINGAR") state = "FÖRFRÅGAN";
         let currentLimit = $("tr").length - 1;
         $(".loading").show();
-        $.post("/liveData/getLiveData.php", { action: "newResults", state, currentLimit }).done(data => {
+        $.post("/liveData/database_api.php", { action: "newResults", state, currentLimit }).done(data => {
             data = JSON.parse(data)
             requests = data[0];
             users = data[1];

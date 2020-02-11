@@ -1,5 +1,6 @@
 <?php
 require_once '../../boot.php';
+//requires an action and based on the input and it might need more data to finish it's task.
 if (isset($_POST["action"])) {
     switch ($_POST["action"]) {
         case 'getLastId':
@@ -46,11 +47,9 @@ if (isset($_POST["action"])) {
             break;
         case 'createPerson':
             if (isset($_POST["user"])) {
-
                 $user = json_decode($_POST["user"]);
-                ChromePhp::log($user, array($user->firstname, $user->lastname, $user->phone, $user->email, $user->personalcode));
-                $engine->provider->executeQuery("INSERT INTO user (firstname, lastname, phone, email, personalcode, role) VALUES (?, ?, ?, ?, ?, ?)", array($user->firstname, $user->lastname, $user->phone, $user->email, $user->personalcode, "inactive", ));
-                echo $engine->provider->fetchRow("SELECT id FROM user WHERE firstname = ? AND lastname = ? AND phone = ? AND email = ? AND personalcode = ?", array($user->firstname, $user->lastname, $user->phone, $user->email, $user->personalcode))["id"];
+                $engine->provider->executeQuery("INSERT INTO user (firstname, lastname, phone, email, personalcode, billingadress, billingemail, billingreference, city, zipcode,role) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", array($user->firstname, $user->lastname, $user->phone, $user->email, $user->personalcode,$user->billingadress, $user->billingemail, $user->billingreference, $user->city, $user->zipcode, "inactive", ));
+                echo $engine->provider->fetchRow("SELECT id FROM user WHERE firstname = ? AND lastname = ? AND phone = ? AND email = ? AND personalcode = ? AND billingadress = ? AND billingemail = ? AND billingreference = ? AND city = ? AND zipcode = ? AND role = ?",array($user->firstname, $user->lastname, $user->phone, $user->email, $user->personalcode,$user->billingadress, $user->billingemail, $user->billingreference, $user->city, $user->zipcode, "inactive", ))["id"];
             }
             break;
         default:

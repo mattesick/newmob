@@ -33,7 +33,8 @@ function showInput($type, $name, $placeholder, $id = "", $label = true, $data = 
             } else if($name == "org" && isset($user["personalcode"])){
                 $info = $user["personalcode"];
             } else{
-                $info = $user["firstname"] . " " . $user["lastname"];
+                $address = strlen($user["billingadress"]) > 0 ? "\"" . $user["billingadress"] . " " . $user["billingadressnr"] . "\" " : "";
+                $info = $user["firstname"] .  " " . $address . $user["lastname"];
             }
         
 
@@ -132,13 +133,12 @@ function showInput($type, $name, $placeholder, $id = "", $label = true, $data = 
             <div></div>
             <div>
                 <div>
-                    <input style="width:75%;" type="text" placeholder=" " name="badress" id="badress">
+                    <input type="text" placeholder=" " name="badress" id="badress">
                     <label for="badress">Faktueringsadress...</label>
                 </div>
-                <input style="width:25%;" type="number" placeholder="Nr..." name="badressNr" id="badressNr">
             </div>
             <?php
-            showInput("number", "zipcode", "Postnummer...");
+            showInput("text", "zipcode", "Postnummer...");
             showInput("text", "city", "Ort...");
             showInput("email", "fepost", "Faktuerings-Epost...");
             ?>
@@ -158,7 +158,6 @@ function showInput($type, $name, $placeholder, $id = "", $label = true, $data = 
             </div>
             <div>
                 <button class="btn sameAsBillingAdress">SAMMA SOM FAKTUERINGSADRESS</button>
-                <button class="btn"><i class="fas fa-map"></i> VÄGBESKRIVNING</button>
             </div>
             <div id="boende-example" class="custom-select">
                 <select name="typeoflivingmove-from">
@@ -174,10 +173,9 @@ function showInput($type, $name, $placeholder, $id = "", $label = true, $data = 
             </div>
             <div>
                 <div>
-                    <input style="width:75%;" class="address-list-move-from" type="text" placeholder=" " name="adressmove-from" id="txtfromautocomplete">
-                    <label for="dsad2aasd2a">Adress...</label>
+                    <input class="address-list-move-from" type="text" placeholder=" " list="hejsan" name="adressmove-from" id="txtfromautocomplete">
+                    <label for="txtfromautocomplete">Adress...</label>
                 </div>
-                <input style="width:25%;" type="number" placeholder="Nr..." name="adressNrmove-from">
             </div>
             <?php
             showInput("text", "zipcodemove-from", "Postnummer...");
@@ -210,7 +208,6 @@ function showInput($type, $name, $placeholder, $id = "", $label = true, $data = 
             </div>
             <div>
                 <button class="btn sameAsBillingAdress">SAMMA SOM FAKTUERINGSADRESS</button>
-                <button class="btn"><i class="fas fa-map"></i> VÄGBESKRIVNING</button>
             </div>
             <div class="custom-select">
                 <select name="typeoflivingmove-to">
@@ -227,10 +224,9 @@ function showInput($type, $name, $placeholder, $id = "", $label = true, $data = 
 
             <div>
                 <div>
-                    <input style="width:75%;" type="text" placeholder=" " name="adressmove-to" class="address-list-move-to" id="txttoautocomplete">
-                    <label for="dsad2aasd2af">Adress...</label>
+                    <input type="text" placeholder=" " name="adressmove-to" class="address-list-move-to" id="txttoautocomplete">
+                    <label for="txttoautocomplete">Adress...</label>
                 </div>
-                <input style="width:25%;" type="number" placeholder="Nr..." name="adressNrmove-to">
             </div>
             <?php
             showInput("text", "zipcodemove-to", "Postnummer...");

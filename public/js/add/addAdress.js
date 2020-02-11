@@ -26,10 +26,9 @@ function newAdress(e, parentClass) {
         </div>
         <div>
         <div>
-            <input style="width:75%;" type="text" placeholder="" class="address-list-${parentClass}" name="adress${parentClass}" id="adress${id}">
+            <input type="text" placeholder=" " class="address-list-${parentClass}" name="adress${parentClass}" id="adress${id}">
             <label for="adress${id}">Adress...</label>
         </div>
-        <input style="width:25%;" type="number" placeholder="Nr..." name="adressNr${parentClass}" id="adressnr${id}">
     </div>
     
 <div>
@@ -66,6 +65,12 @@ function newAdress(e, parentClass) {
         <i class="fas fa-trash"></i>
     </div>
         `).insertAfter(insertAfter);
+    forceRouteOnChange($("input[name=adressmove-to]")[$("input[name=adressmove-to]").length - 1])
+    forceRouteOnChange($("input[name=adressmove-to]")[$("input[name=adressmove-to]").length - 1])
+    forceRouteOnChange($("input[name=adressmove-to]")[$("input[name=adressmove-to]").length - 1])
+    forceRouteOnChange($("input[name=adressmove-from]")[$("input[name=adressmove-from]").length - 1])
+    forceRouteOnChange($("input[name=adressmove-from]")[$("input[name=adressmove-from]").length - 1])
+    forceRouteOnChange($("input[name=adressmove-from]")[$("input[name=adressmove-from]").length - 1])
     google.maps.event.addDomListener(window, 'load', initialize(map_id));
 
     var x, i, j, selElmnt, a, b, c;
@@ -160,7 +165,6 @@ function upOrDown(target) {
         bigElevator: $($(`input[name=bigElevator${parentClass}]`)[place]).prop("checked"),
         smallElevator: $($(`input[name=smallElevator${parentClass}]`)[place]).prop("checked"),
         adress: $($(`input[name=adress${parentClass}]`)[place]).val(),
-        adressNr: $($(`input[name=adressNr${parentClass}]`)[place]).val(),
         zipcode: $($(`input[name=zipcode${parentClass}]`)[place]).val(),
         city: $($(`input[name=city${parentClass}]`)[place]).val(),
         living: $($(`input[name=living${parentClass}]`)[place]).val(),
@@ -171,7 +175,6 @@ function upOrDown(target) {
     $($(`input[name=bigElevator${parentClass}]`)[place]).prop("checked", $($(`input[name=bigElevator${parentClass}]`)[place + 1]).prop("checked"))
     $($(`input[name=smallElevator${parentClass}]`)[place]).prop("checked", $($(`input[name=smallElevator${parentClass}]`)[place + 1]).prop("checked"))
     $($(`input[name=adress${parentClass}]`)[place]).val($($(`input[name=adress${parentClass}]`)[place + 1]).val())
-    $($(`input[name=adressNr${parentClass}]`)[place]).val($($(`input[name=adressNr${parentClass}]`)[place + 1]).val())
     $($(`input[name=zipcode${parentClass}]`)[place]).val($($(`input[name=zipcode${parentClass}]`)[place + 1]).val())
     $($(`input[name=city${parentClass}]`)[place]).val($($(`input[name=city${parentClass}]`)[place + 1]).val())
     $($(`input[name=living${parentClass}]`)[place]).val($($(`input[name=living${parentClass}]`)[place + 1]).val())
@@ -182,7 +185,6 @@ function upOrDown(target) {
     $($(`input[name=bigElevator${parentClass}]`)[place + 1]).prop("checked", move.bigElevator);
     $($(`input[name=smallElevator${parentClass}]`)[place + 1]).prop("checked", move.smallElevator);
     $($(`input[name=adress${parentClass}]`)[place + 1]).val(move.adress);
-    $($(`input[name=adressNr${parentClass}]`)[place + 1]).val(move.adressNr);
     $($(`input[name=zipcode${parentClass}]`)[place + 1]).val(move.zipcode);
     $($(`input[name=city${parentClass}]`)[place + 1]).val(move.city);
     $($(`input[name=living${parentClass}]`)[place + 1]).val(move.living);
@@ -241,3 +243,15 @@ function generateId() {
     }
     return id;
 }
+
+function forceRouteOnChange(selector) {
+    $(selector).change(() => {
+        forceCalcRoute();
+    })
+}
+forceRouteOnChange("input[name=adressmove-to]")
+forceRouteOnChange("input[name=adressmove-from]")
+forceRouteOnChange("input[name=zipcodemove-to]")
+forceRouteOnChange("input[name=zipcodemove-from]")
+forceRouteOnChange("input[name=citymove-to]")
+forceRouteOnChange("input[name=citymove-from]")

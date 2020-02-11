@@ -18,8 +18,8 @@ class Functions
     public function generateUrl($path = '', $home = 0)
     {
         $protocol = 'http';
-        if($home == 1){
-            return $protocol."://" . $_SERVER['HTTP_HOST'] . "/$path";
+        if ($home == 1) {
+            return $protocol . "://" . $_SERVER['HTTP_HOST'] . "/$path";
         }
         return $GLOBALS['systemConfig']['system']['base_url'] . $path;
     }
@@ -37,44 +37,47 @@ class Functions
         }
         return $id;
     }
-
-    
 }
 
-function redirect_page($url) {
+function redirect_page($url)
+{
     header("Location: " . $url);
     die();
 }
 
-function set_message($type='',$msg='') {
-    if ($type !='' && $msg !='') {
+function set_message($type = '', $msg = '')
+{
+    if ($type != '' && $msg != '') {
         $type = strtolower($type);
         if ($type == "success" || $type == "danger" || $type == "info" || $type == "warning") {
-            $_SESSION[$type]=$msg;
-        }       
+            $_SESSION[$type] = $msg;
+        }
     }
 }
 
-function show_messsage($type = '',$flag = false){   
+function show_messsage($type = '', $flag = false)
+{
     if ($type == "success" || $type == "danger" || $type == "info" || $type == "warning") {
-        if(isset($_SESSION[$type])) {
-            if($flag == true) {
-                echo $_SESSION[$type];  
+        if (isset($_SESSION[$type])) {
+            if ($flag == true) {
+                echo $_SESSION[$type];
             } else {
-                echo "<div class='alert alert-".$type." cstm-msg-all'>".$_SESSION[$type]."</div>"; 
-            }           
+                echo "<div class='alert alert-" . $type . " cstm-msg-all'>" . $_SESSION[$type] . "</div>";
+            }
             unset($_SESSION[$type]);
         }
     }
 }
 
-function pr($content) {
+function pr($content)
+{
     echo "<pre>";
     print_r($content);
     echo "</pre>";
 }
 
-function po($data = '') {
+function po($data = '')
+{
     echo "<pre>";
     if ($data == '') {
         print_r($_POST);
